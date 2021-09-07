@@ -1,12 +1,13 @@
 const { response } = require('express')
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 app.use(express.json())
 let str = ""
 morgan.token("rtrn", () => JSON.stringify(str))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :rtrn'))
-
+app.use(cors())
 
 let numbers = [
     {
@@ -35,14 +36,14 @@ const genId = () => {
     return Math.floor(Math.random() * 10000)
 }
 
-app.get('/', (request, response) => {
+app.get('/', (req, res) => {
     str = req.body
-    response.send('<h1>Hello World!</h1>')
+    res.send('<h1>Hello World!</h1>')
 })
 
-app.get('/info', (request, response) => {
+app.get('/info', (req, res) => {
     str = req.body
-    response.send(`<p>Phonebook has info for ${numbers.length} people</h1><br/><p>${new Date()}</p>`)
+    res.send(`<p>Phonebook has info for ${numbers.length} people</h1><br/><p>${new Date()}</p>`)
 })
 
 app.get('/api/persons', (req, res) => {
@@ -94,7 +95,7 @@ app.post('/api/persons', (req, res) => {
     res.json(person)
 })
 
-const port = 3001
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
 })
