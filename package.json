@@ -7,7 +7,9 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rmdir /s build && cd ..\\..\\fullstackopen2021\\Kierros 2\\puhelinluettelo && npm run build --prod && Xcopy /E build ..\\..\\..\\Kierros_3\\Fullstackopen2021_kierros3\\build\\",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.7.0",
     "nodemon": "^2.0.7"
   }
 }
